@@ -188,8 +188,8 @@ class ApproximateQAgent(PacmanQAgent):
         # print self.featExtractor[(state,action)]
         # print self.featExtractor.getFeatures(state, action)
         answer = 0
-        for k in self.featExtractor.getFeatures(state, action).keys():
-          answer += self.weights[k] * self.featExtractor.getFeatures(state, action)[k]
+        for k,v in self.featExtractor.getFeatures(state, action).iteritems():
+          answer += self.weights[k] * v
 
         return answer
         # self.featExtractor[(state,action)]
@@ -210,8 +210,8 @@ class ApproximateQAgent(PacmanQAgent):
             if nextQ > maxNextQ:
                 maxNextQ = nextQ
         difference = (reward + self.discount*maxNextQ) - currVal
-        for k in self.featExtractor.getFeatures(state, action).keys():
-          self.weights[k] = self.weights[k] +(self.alpha*difference*self.featExtractor.getFeatures(state, action)[k])
+        for k,v in self.featExtractor.getFeatures(state, action).iteritems():
+          self.weights[k] = self.weights[k] +(self.alpha*difference*v)
 
 
     def final(self, state):
